@@ -2,21 +2,21 @@ import React, { useContext } from 'react';
 import ContextWars from '../context/contextWars';
 
 function Table() {
-  const { data } = useContext(ContextWars);
+  const { dataFilter } = useContext(ContextWars);
   const renderLine = (line, index) => {
     const cols = Object.keys(line);
     return (
-      <tr key={ index }>
+      <tr key={ (index + 1) * Math.random() }>
         {cols.map((colName, indexFilms) => {
           if (colName === 'films') {
             return (
-              <td key={ indexFilms }>
+              <td key={ indexFilms * (Math.random() + 1) }>
                 {line[colName].map((item) => item)}
               </td>
             );
           }
           return (
-            <td key={ index }>
+            <td key={ (index + 1) * Math.random() }>
               {line[colName]}
             </td>
           );
@@ -44,7 +44,7 @@ function Table() {
         </tr>
       </thead>
       <tbody>
-        {data.map(renderLine)}
+        {dataFilter.map(renderLine)}
       </tbody>
     </table>
   );
