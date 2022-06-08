@@ -3,7 +3,7 @@ import ContextWars from '../context/contextWars';
 
 function Filter() {
   const { filterByName, changeName, saveFilter,
-    colsSelect } = useContext(ContextWars);
+    colsSelect, filterByNumber, removeFilter } = useContext(ContextWars);
 
   return (
     <form>
@@ -51,6 +51,15 @@ function Filter() {
         Filtro
 
       </button>
+
+      <ul className="filters">
+        {filterByNumber.map(({ colFilter, operator, number }, index) => (
+          <li key={ index } data-testid="filter">
+            <p className={ colFilter }>{`${colFilter} ${operator} ${number}`}</p>
+            <button onClick={ removeFilter } type="button">X</button>
+          </li>
+        ))}
+      </ul>
     </form>
   );
 }

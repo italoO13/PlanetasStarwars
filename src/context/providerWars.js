@@ -62,6 +62,7 @@ function ProviderWars({ children }) {
             return true;
           }
         }, dataFilter);
+      console.log(filterReduce);
       setdataFilter(filterReduce);
     };
     const updateColsSelect = () => {
@@ -76,10 +77,10 @@ function ProviderWars({ children }) {
   }, [filterByNumber]);
 
   useEffect(() => {
-    const teste = () => {
+    const updateinputs = () => {
       setfilterByName({ ...filterByName, colFilter: colsSelect[0] });
     };
-    teste();
+    updateinputs();
   }, [colsSelect]);
 
   const saveFilter = () => {
@@ -90,6 +91,17 @@ function ProviderWars({ children }) {
         number: filterByName.number,
       }]);
   };
+  const removeFilter = (event) => {
+    const colName = event.target.previousElementSibling.className;
+    // const li = event.target.parentElement;
+    setfilterByNumber(
+      filterByNumber.filter(({ colFilter }) => colFilter !== colName),
+    );
+    setcolsSelect(
+      ['population', 'diameter',
+        'orbital_period', 'rotation_period', 'surface_water'],
+    );
+  };
 
   const context = {
     dataFilter,
@@ -97,6 +109,8 @@ function ProviderWars({ children }) {
     changeName,
     saveFilter,
     colsSelect,
+    filterByNumber,
+    removeFilter,
   };
 
   return (
