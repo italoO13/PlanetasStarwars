@@ -4,13 +4,14 @@ import ContextWars from './contextWars';
 
 function ProviderWars({ children }) {
   const [data, setdata] = useState([]);
-  const [dataFilter, setdataFilter] = useState(data);
+  const [dataFilter, setdataFilter] = useState([]);
   const [filterByName, setfilterByName] = useState({
     name: '',
     colFilter: 'population',
     operator: 'maior que',
     number: '0',
   });
+  const [filterByNumber, setfilterByNumber] = useState([]);
 
   const changeName = ({ target }) => {
     setfilterByName({ ...filterByName, [target.name]: target.value });
@@ -41,33 +42,43 @@ function ProviderWars({ children }) {
     filterName();
   }, [filterByName.name, data]);
 
-  const filter = () => {
-    console.log('vixe, chamou');
-    // const filters = Object.keys(filterByName).filter(((item) => item !== 'name'));
-    const { operator, colFilter, number } = filterByName;
-    switch (operator) {
-    case 'maior que':
-      setdataFilter(dataFilter
-        .filter((obj) => Math.floor(obj[colFilter]) > Math.floor(number)));
-      break;
-    case 'menor que':
-      setdataFilter(dataFilter
-        .filter((obj) => Math.floor(obj[colFilter]) < Math.floor(number)));
-      break;
-    case 'igual a':
-      setdataFilter(dataFilter
-        .filter((obj) => Math.floor(obj[colFilter]) === Math.floor(number)));
-      break;
-    default:
-      return true;
-    }
+  useEffect(() => {
+    const filter = () => {
+      const filterReduce = filterByNumber
+        .reduce((acc, { operator, colFilter, number }) => {
+          switch (operator) {
+          case 'maior que':
+            return acc
+              .filter((obj) => Math.floor(obj[colFilter]) > Math.floor(number));
+          case 'menor que':
+            return acc
+              .filter((obj) => Math.floor(obj[colFilter]) < Math.floor(number));
+          case 'igual a':
+            return acc
+              .filter((obj) => Math.floor(obj[colFilter]) === Math.floor(number));
+          default:
+            return true;
+          }
+        }, dataFilter);
+      setdataFilter(filterReduce);
+    };
+    filter();
+  }, [filterByNumber]);
+
+  const saveFilter = () => {
+    setfilterByNumber([...filterByNumber,
+      {
+        colFilter: filterByName.colFilter,
+        operator: filterByName.operator,
+        number: filterByName.number,
+      }]);
   };
 
   const context = {
     dataFilter,
     filterByName,
     changeName,
-    filter,
+    saveFilter,
   };
 
   return (
@@ -79,7 +90,7 @@ function ProviderWars({ children }) {
 }
 
 ProviderWars.propTypes = {
-  Childre: PropTypes.string,
+  Childre: PropTypes.objectOf,
 }.isRequired;
 
 export default ProviderWars;

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import ContextWars from '../context/contextWars';
 
 function Filter() {
-  const { filterByName, changeName, filter } = useContext(ContextWars);
+  const { filterByName, changeName, saveFilter } = useContext(ContextWars);
 
   return (
     <form>
@@ -45,7 +45,7 @@ function Filter() {
       />
       <button
         type="button"
-        onClick={ filter }
+        onClick={ saveFilter }
         data-testid="button-filter"
       >
         Filtro
