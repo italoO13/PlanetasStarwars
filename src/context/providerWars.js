@@ -7,10 +7,13 @@ function ProviderWars({ children }) {
   const [dataFilter, setdataFilter] = useState(data);
   const [filterByName, setfilterByName] = useState({
     name: '',
+    colFilter: 'population',
+    operator: 'maior que',
+    number: '0',
   });
 
   const changeName = ({ target }) => {
-    setfilterByName({ ...filterByName, name: target.value });
+    setfilterByName({ ...filterByName, [target.name]: target.value });
   };
 
   // Faz requisição a API e salva dados na variavel data, é retirado a coluna residents
@@ -36,12 +39,35 @@ function ProviderWars({ children }) {
       setdataFilter(filter);
     };
     filterName();
-  }, [filterByName, data]);
+  }, [filterByName.name, data]);
+
+  const filter = () => {
+    console.log('vixe, chamou');
+    // const filters = Object.keys(filterByName).filter(((item) => item !== 'name'));
+    const { operator, colFilter, number } = filterByName;
+    switch (operator) {
+    case 'maior que':
+      setdataFilter(dataFilter
+        .filter((obj) => Math.floor(obj[colFilter]) > Math.floor(number)));
+      break;
+    case 'menor que':
+      setdataFilter(dataFilter
+        .filter((obj) => Math.floor(obj[colFilter]) < Math.floor(number)));
+      break;
+    case 'igual a':
+      setdataFilter(dataFilter
+        .filter((obj) => Math.floor(obj[colFilter]) === Math.floor(number)));
+      break;
+    default:
+      return true;
+    }
+  };
 
   const context = {
     dataFilter,
     filterByName,
     changeName,
+    filter,
   };
 
   return (
