@@ -45,6 +45,7 @@ function ProviderWars({ children }) {
   }, [filterByName.name, data]);
 
   useEffect(() => {
+    console.log(dataFilter);
     const filter = () => {
       const filterReduce = filterByNumber
         .reduce((acc, { operator, colFilter, number }) => {
@@ -61,8 +62,7 @@ function ProviderWars({ children }) {
           default:
             return true;
           }
-        }, dataFilter);
-      console.log(filterReduce);
+        }, data.filter((line) => line.name.includes(filterByName.name)));
       setdataFilter(filterReduce);
     };
     const updateColsSelect = () => {
