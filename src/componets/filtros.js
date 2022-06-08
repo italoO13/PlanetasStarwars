@@ -2,7 +2,8 @@ import React, { useContext } from 'react';
 import ContextWars from '../context/contextWars';
 
 function Filter() {
-  const { filterByName, changeName, saveFilter } = useContext(ContextWars);
+  const { filterByName, changeName, saveFilter,
+    colsSelect } = useContext(ContextWars);
 
   return (
     <form>
@@ -18,11 +19,8 @@ function Filter() {
         name="colFilter"
         data-testid="column-filter"
       >
-        <option value="population">population</option>
-        <option value="diameter">diameter</option>
-        <option value="orbital_period">orbital_period</option>
-        <option value="rotation_period">rotation_period</option>
-        <option value="surface_water">surface_water</option>
+        {colsSelect
+          .map((col, index) => <option key={ index } value={ col }>{col}</option>)}
       </select>
 
       <select
@@ -45,7 +43,9 @@ function Filter() {
       />
       <button
         type="button"
-        onClick={ saveFilter }
+        onClick={ () => {
+          saveFilter();
+        } }
         data-testid="button-filter"
       >
         Filtro
