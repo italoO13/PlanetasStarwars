@@ -45,7 +45,6 @@ function ProviderWars({ children }) {
   }, [filterByName.name, data]);
 
   useEffect(() => {
-    console.log(dataFilter);
     const filter = () => {
       const filterReduce = filterByNumber
         .reduce((acc, { operator, colFilter, number }) => {
@@ -102,6 +101,13 @@ function ProviderWars({ children }) {
         'orbital_period', 'rotation_period', 'surface_water'],
     );
   };
+  const removeAllFilter = () => {
+    setfilterByNumber([]);
+    setcolsSelect(
+      ['population', 'diameter',
+        'orbital_period', 'rotation_period', 'surface_water'],
+    );
+  };
 
   const context = {
     dataFilter,
@@ -111,6 +117,7 @@ function ProviderWars({ children }) {
     colsSelect,
     filterByNumber,
     removeFilter,
+    removeAllFilter,
   };
 
   return (

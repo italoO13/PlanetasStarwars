@@ -3,7 +3,7 @@ import ContextWars from '../context/contextWars';
 
 function Filter() {
   const { filterByName, changeName, saveFilter,
-    colsSelect, filterByNumber, removeFilter } = useContext(ContextWars);
+    colsSelect, filterByNumber, removeFilter, removeAllFilter } = useContext(ContextWars);
 
   return (
     <form>
@@ -50,6 +50,13 @@ function Filter() {
       >
         Filtro
 
+      </button>
+      <button
+        data-testid="button-remove-filters"
+        onClick={ removeAllFilter }
+        type="button"
+      >
+        Remove Filtros
       </button>
 
       <ul className="filters">
