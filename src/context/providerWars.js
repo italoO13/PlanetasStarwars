@@ -14,9 +14,27 @@ function ProviderWars({ children }) {
   const [filterByNumber, setfilterByNumber] = useState([]);
   const [colsSelect, setcolsSelect] = useState(['population', 'diameter',
     'orbital_period', 'rotation_period', 'surface_water']);
+  const [order, setorder] = useState({
+    columns: '',
+    sort: '',
+  });
 
   const changeName = ({ target }) => {
     setfilterByName({ ...filterByName, [target.name]: target.value });
+  };
+
+  const saveOrder = (orderLocal) => {
+    setorder({
+      ...orderLocal,
+    });
+  };
+
+  const filterOrdAlfabet = (a, b) => {
+    const numNeg = -1;
+    if (a.name > b.name) {
+      return 1;
+    }
+    return numNeg;
   };
 
   // Faz requisição a API e salva dados na variavel data, é retirado a coluna residents
@@ -28,8 +46,8 @@ function ProviderWars({ children }) {
         const cols = Object.keys(obj).filter((name) => name !== 'residents');
         return cols.reduce((acc, col) => ({ ...acc, [col]: obj[col] }), {});
       });
-      setdata(dataAPI);
-      setdataFilter(dataAPI);
+      setdata(dataAPI.sort(filterOrdAlfabet));
+      setdataFilter(dataAPI.sort(filterOrdAlfabet));
     };
     fetchApiWars();
   }, []);
@@ -82,6 +100,43 @@ function ProviderWars({ children }) {
     updateinputs();
   }, [colsSelect]);
 
+  useEffect(() => {
+    const filterOrdAsc = (a, b) => {
+      const numNeg = -1;
+      if (a[order.columns] === 'unknown') {
+        return 2;
+      }
+      if (b[order.columns] === 'unknown') {
+        return numNeg;
+      }
+      return Math.floor(a[order.columns]) - Math.floor(b[order.columns]);
+
+      // return 1;
+    };
+    const filterOrdDes = (a, b) => {
+      const numNeg = -1;
+      if (a[order.columns] === 'unknown') {
+        return 2;
+      }
+      if (b[order.columns] === 'unknown') {
+        return numNeg;
+      }
+      return Math.floor(b[order.columns]) - Math.floor(a[order.columns]);
+    };
+
+    const FilterClick = () => {
+      if (order.sort === 'ASC') {
+        const teste = [...dataFilter.sort(filterOrdAsc)];
+        setdataFilter(teste);
+      }
+      if (order.sort === 'DESC') {
+        const teste = [...dataFilter.sort(filterOrdDes)];
+        setdataFilter(teste);
+      }
+    };
+    FilterClick();
+  }, [order]);
+
   const saveFilter = () => {
     setfilterByNumber([...filterByNumber,
       {
@@ -92,7 +147,6 @@ function ProviderWars({ children }) {
   };
   const removeFilter = (event) => {
     const colName = event.target.previousElementSibling.className;
-    // const li = event.target.parentElement;
     setfilterByNumber(
       filterByNumber.filter(({ colFilter }) => colFilter !== colName),
     );
@@ -118,6 +172,7 @@ function ProviderWars({ children }) {
     filterByNumber,
     removeFilter,
     removeAllFilter,
+    saveOrder,
   };
 
   return (

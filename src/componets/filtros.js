@@ -1,10 +1,23 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import ContextWars from '../context/contextWars';
 
 function Filter() {
   const { filterByName, changeName, saveFilter,
-    colsSelect, filterByNumber, removeFilter, removeAllFilter } = useContext(ContextWars);
+    colsSelect, filterByNumber, removeFilter,
+    removeAllFilter, saveOrder } = useContext(ContextWars);
 
+  const [orderFilter, setorderFilter] = useState({
+    columns: 'population',
+    sort: 'ASC',
+  });
+
+  const changeOrder = ({ target }) => {
+    const { name, value } = target;
+    setorderFilter({
+      ...orderFilter,
+      [name]: value,
+    });
+  };
   return (
     <form>
       <input
@@ -67,7 +80,47 @@ function Filter() {
           </li>
         ))}
       </ul>
+      <div>
+        <select onChange={ changeOrder } name="columns" data-testid="column-sort">
+          <option value="population">population</option>
+          <option value="orbital_period">orbital_period</option>
+          <option value="diameter">diameter</option>
+          <option value="rotation_period">rotation_period</option>
+          <option value="surface_water">surface_water</option>
+        </select>
+
+        <label htmlFor="order">
+          Crescente
+          <input
+            defaultChecked
+            onChange={ changeOrder }
+            data-testid="column-sort-input-asc"
+            name="sort"
+            value="ASC"
+            type="radio"
+          />
+        </label>
+        <label htmlFor="order">
+          Decrescente
+          <input
+            onChange={ changeOrder }
+            name="sort"
+            data-testid="column-sort-input-desc"
+            value="DESC"
+            type="radio"
+          />
+        </label>
+
+        <button
+          data-testid="column-sort-button"
+          type="button"
+          onClick={ () => saveOrder(orderFilter) }
+        >
+          Ordenar
+        </button>
+      </div>
     </form>
+
   );
 }
 

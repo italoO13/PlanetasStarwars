@@ -15,6 +15,13 @@ function Table() {
               </td>
             );
           }
+          if (colName === 'name') {
+            return (
+              <td data-testid="planet-name" key={ (index + 1) * Math.random() }>
+                {line[colName]}
+              </td>
+            );
+          }
           return (
             <td key={ (index + 1) * Math.random() }>
               {line[colName]}
