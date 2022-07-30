@@ -1,9 +1,9 @@
 <h1 align="center">
-     <a href="#" alt="site de despesa"> Suas Despesas </a>
+     <a href="#" alt="site de despesa"> StarWars Planetas</a>
 </h1>
 
 <h3 align="center">
-    Seu sistema de controle financeiro para quem mora em outro país mas recebe em reais. 💚
+    Lógica de filtros com React Hooks utilizando API.
 </h3>
 
 <h4 align="center">
@@ -24,25 +24,24 @@ Tabela de conteúdos
 
 ## 💻 Sobre o projeto
 
-Suas Despesas - E se você morasse no exterior gastando em uma moeda extrangeira mas ganhando em reais ? (kk vixe) Conheça o Suas despesas, um sistema para controle de despesas que utiliza a cotação de diversas moedas em tempo real. 
+Este projeto tem como objetivo aprender a utilizar lógicas de filtros em dados a partir do React. Para isso foi manipulado informações de uma API que apresenta os planetas que apareceram nos filmes de StarWars. 
 
 
 ---
 
 ## ⚙️ Funcionalidades
 
-- [x] Cadastro de despesas
-- [x] Edição de despesas
-- [x] Excluir despesas 
-- [x] Visualização de despesas
-- [x] Chamada de API com cotações das moedas em tempo real
+- [x] Manipulação de API
+- [x] Filtrar dados de Texto
+- [x] Filtrar dados a partir de vários parâmetros numéricos. 
+- [x] Lógica de remoção de filtros colocados
+- [x] Ordernar colunas de forma ascendente ou descendente
 
 ---
 
 ## 🎨 Layout
 
-  <img alt="review layout" src="1.jpg">
-  <img alt="review layout" src="2.jpg">
+  <img alt="review layout" src="./reviewApplication.png">
 
 ## 🛠 Tecnologias
 
@@ -50,6 +49,5 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 -   **React Router Dom**
 -   **React**
--   **Redux**
--   **Figma**
+-   **Hooks**
 
