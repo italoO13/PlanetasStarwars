@@ -1,6 +1,6 @@
 import React from 'react';
 import ProviderWars from './context/providerWars';
-import Table from './componets/table';
+import Table from './componets/Table/Table';
 import * as C from './App.styles';
 import Filter from './componets/Filtros/Filter';
 
