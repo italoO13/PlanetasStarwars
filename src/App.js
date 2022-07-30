@@ -1,17 +1,17 @@
 import React from 'react';
 import ProviderWars from './context/providerWars';
 import Table from './componets/table';
-import './App.css';
-import Filter from './componets/filtros';
+import * as C from './App.styles';
+import Filter from './componets/Filtros/Filter';
 
 function App() {
   return (
     <ProviderWars>
-      <div className="AppConteudo">
-        <span>Hello, App!!</span>
+      <C.Container className="AppConteudo">
+        <C.Title>Filtre todos os planetas de StarWars</C.Title>
         <Filter />
         <Table />
-      </div>
+      </C.Container>
     </ProviderWars>
   );
 }
