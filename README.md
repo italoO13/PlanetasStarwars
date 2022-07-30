@@ -51,3 +51,6 @@ As seguintes ferramentas foram usadas na construção do projeto:
 -   **React**
 -   **Hooks**
 
+## Link de Preview do projeto
+
+  <a src="https://thriving-wisp-ae9458.netlify.app/" alt="projeto StarWars" >Preview</a>
