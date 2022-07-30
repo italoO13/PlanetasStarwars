@@ -41,7 +41,7 @@ Este projeto tem como objetivo aprender a utilizar lógicas de filtros em dados 
 
 ## 🎨 Layout
 
-  <img alt="review layout" src="./reviewApplication.png">
+  <img alt="review layout" src="./src/reviewApplication.png">
 
 ## 🛠 Tecnologias
 
