@@ -6,9 +6,10 @@ export const Container = styled.div`
   flex-direction:column;
   justify-content:start;
   min-height:100vh;
-  width: 100vw;
+  width: 100%;
   padding: 0;
   margin: 0;
+  overflow:hidden;
 `;
 
 export const Title = styled.h1`
